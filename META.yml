@@ -18,11 +18,13 @@ no_index:
   directory:
     - html
     - inc
+    - t
   package:
     - RT::Action::SendEmail
     - RT::Ticket
 requires:
+  List::MoreUtils: 0
   perl: 5.8.3
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.01
+version: 1.00
