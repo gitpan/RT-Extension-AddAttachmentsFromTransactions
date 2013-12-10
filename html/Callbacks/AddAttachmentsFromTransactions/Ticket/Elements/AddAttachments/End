@@ -1,27 +1,11 @@
-% if (keys %documents) {
 <tr>
   <td class="label" valign="top"><&|/l&>Include attachments</&>:</td>
-  <td>
-% foreach my $key (sort { lc($a) cmp lc($b) } keys %documents) {
-<dl>
-<dt><%$key%></dt>
-% foreach my $rev (@{$documents{$key}}) {
-<dd>
-<input type="checkbox" class="checkbox" name="AttachExisting" value="<% $rev->Id %>" />
-<font size="-2">
-<a href="<%RT->Config->Get('WebPath')%>/Ticket/Attachment/<%$rev->TransactionId%>/<%$rev->Id%>/<%$rev->Filename | un %>">
-% my $desc = loc("[_1] ([_2]) by [_3]", $rev->CreatedAsString, $rev->FriendlyContentLength, $m->scomp('/Elements/ShowUser', User => $rev->CreatorObj));
-<% $desc |n%>
-</a>
-</font>
-</dd>
-% }
-</dl>
-% }
-  </td>
+  <td><& /Ticket/Elements/AddAttachmentsFromTransactions, Attachments => \%documents &></td>
 </tr>
-% }
 <%init>
+# for RT version 4.0.18 and above we use a different callback
+return if RT::Handle::cmp_version($RT::VERSION, '4.0.18') >= 0;
+
 return unless $TicketObj;
 
 # NOTE: we can't use here $m->comp_exists('/Ticket/Elements/FindAttachments')
@@ -36,8 +20,9 @@ while ( my $attach = $Attachments->Next() ) {
     next unless defined $attach->Filename && length $attach->Filename;
     unshift( @{ $documents{ $attach->Filename } }, $attach );
 }
-</%init>
 
+return unless keys %documents;
+</%init>
 <%args>
 $TicketObj => undef
 </%args>
