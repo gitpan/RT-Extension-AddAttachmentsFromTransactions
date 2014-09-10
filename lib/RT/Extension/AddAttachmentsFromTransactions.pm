@@ -4,7 +4,7 @@ use 5.008003;
 use strict;
 use warnings;
 
-our $VERSION = '2.02';
+our $VERSION = '2.03';
 
 {
     require RT::Ticket;
@@ -133,11 +133,11 @@ May need root permissions
 
 If you are using RT 4.2 or greater, add this line:
 
-Plugin('RT::Extension::AddAttachmentsFromTransactions');
+    Plugin('RT::Extension::AddAttachmentsFromTransactions');
 
-For RT 3.8 and 4.0, add this line:
+For RT 4.0, add this line:
 
-Set(@Plugins, qw(RT::Extension::AddAttachmentsFromTransactions));
+    Set(@Plugins, qw(RT::Extension::AddAttachmentsFromTransactions));
 
 or add C<RT::Extension::AddAttachmentsFromTransactions> to your existing C<@Plugins> line.
 
@@ -153,12 +153,13 @@ or add C<RT::Extension::AddAttachmentsFromTransactions> to your existing C<@Plug
 
 Christian Loos <cloos@netsandbox.de>
 
-=head1 LICENCE AND COPYRIGHT
+=head1 LICENSE AND COPYRIGHT
 
-Copyright (C) 2012-2013, Christian Loos.
+This software is Copyright (C) 2012-2014, Christian Loos.
 
-This extension is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
 
 =head1 SEE ALSO
 
